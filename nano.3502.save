@@ -1,0 +1,29 @@
+
+# Use the official Jenkins LTS image
+FROM jenkins/jenkins:lts
+
+# Switch to root user to install dependencies
+USER root
+
+# Update and install dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    sudo \
+    openjdk-17-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Allow Jenkins user to run sudo commands
+RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Expose necessary ports
+EXPOSE 8080 50000
+
+# Set up Jenkins home directory
+VOLUME /var/jenkins_home
+
+# Switch back to the Jenkins user
+USER jenkins
+
+# Start Jenkins
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
