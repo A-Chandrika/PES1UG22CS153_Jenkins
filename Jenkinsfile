@@ -8,7 +8,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh './hello_exec'
+                // Introduce an error (wrong command)
+                sh 'invalid_command_here'
             }
         }
         stage('Deploy') {
@@ -23,4 +24,5 @@ pipeline {
         }
     }
 }
+
 
