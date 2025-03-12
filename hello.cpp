@@ -2,6 +2,6 @@
 using namespace std;
 
 int main() {
-    cout << "Hello, Jenkins!" << endl;
+    cout << "Hello, Jenkins! Webhook Trigger Test" << endl;  // Updated message
     return 0;
 }
